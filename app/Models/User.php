@@ -156,6 +156,14 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function getIsAdminAttribute()
     {
-        return $this->role->name == RoleEnum::ADMIN->value;
+        return $this->role?->name == RoleEnum::ADMIN->value;
+    }
+
+    public function markAsUser()
+    {
+
+        $role = Role::where('name', RoleEnum::USER)->first();
+        $this->role()->associate($role);
+        $this->save();
     }
 }

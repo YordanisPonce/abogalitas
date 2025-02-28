@@ -34,6 +34,7 @@ class AuthService
         }
 
         $user = $this->repository->save($attributes + ['pin' => $this->generatePin()]);
+        $user->markAsUser();
 
 
         throw_if(!$user, 'Ha ocurrido un error a la hora de completar el registro');
