@@ -22,7 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (Exception $e) {
-            if (request()->is('api/*')) {
+          /*  if (request()->is('api/*')) {
                 $statusCode = Response::HTTP_BAD_REQUEST;
                 $message = $e->getMessage();
 
@@ -41,6 +41,6 @@ return Application::configure(basePath: dirname(__DIR__))
                     $statusCode = Response::HTTP_UNAUTHORIZED;
                 }
                 return ResponseHelper::response(ResponseHelper::fail($message, $statusCode));
-            }
+            }*/
         });
     })->create();
