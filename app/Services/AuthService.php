@@ -32,7 +32,7 @@ class AuthService
             $path = $this->upload($fileName, request()->file('photo'));
             $attributes['photo'] = $path;
         }
-        //$role = $this->roleRepository->findByName(RoleEnum::CLIENT->value);
+
         $user = $this->repository->save($attributes + ['pin' => $this->generatePin()]);
 
 

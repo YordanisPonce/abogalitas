@@ -66,10 +66,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendRegisteredEmail()
     {
         $appName = config('app.name');
+        $name = $this->attributes['name'];
         $this->notify(new DinamicNotification([
             'subject' => "¡Bienvenido a $appName! Tu viaje hacia la digitalización comienza aquí",
             'message' => [
-                "Hola {$this->name}",
+                "Hola {$name}",
                 "¡Estamos emocionados de darte la bienvenida a $appName! 🎉",
                 "Gracias por registrarte. Para activar tu cuenta y comenzar a disfrutar de todas nuestras funcionalidades de escaneo y digitalización de documentos, por favor confirma tu dirección de correo electrónico utilizando el siguiente código de verificación:",
                 "<h1><strong>{$this->pin}</strong></h1>",
