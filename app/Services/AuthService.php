@@ -52,7 +52,7 @@ class AuthService
     {
         $user = $this->repository->findByEmail($attributes["email"]);
         throw_if(!$user, 'Credenciales incorrectas', AuthorizationException::class);
-        throw_if(!$user->hasVerifiedEmail(), 'Cuenta no verificada', AuthorizationException::class);
+        //throw_if(!$user->hasVerifiedEmail(), 'Cuenta no verificada', ['user' => $user]);
 
         if (
             !Auth::attempt(
@@ -61,7 +61,17 @@ class AuthService
         ) {
             return ResponseHelper::fail("Correo o contraseña errónea", 403);
         }
+
+        if (
+            !$user->hasVerifiedEmail()
+        ) {
+            return ResponseHelper::fail("Cuenta no verificada", 400, ['user' => $user]);
+        }
+
+
+
         $token = $user->createToken($this->tokenName)->plainTextToken;
+
 
         return ResponseHelper::ok($user->is_verified ? "Acceso al sistema" : "Su cuenta está pendiente de verificación", [
             $this->tokenName => $token,
